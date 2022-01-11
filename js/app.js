@@ -5,7 +5,7 @@ function isEqual(str1, str2) {
   return str1 == str2;
 }
 
-function camiarImagen(id = "1_1", src = "/assets/images/caraOculta.png") {
+function camiarImagen(id = "1_1", src = "assets/images/caraOculta.png") {
   document.getElementById(id).setAttribute("src", src);
 }
 
@@ -15,7 +15,7 @@ class Carta {
     this.numero = numero;
     this.color = color;
     this.estado = false;
-    this.urlImg = "/assets/images/caraOculta.png";
+    this.urlImg = "assets/images/caraOculta.png";
   }
 
   presentarCarta() {
@@ -70,7 +70,7 @@ class Naipe {
     }
   }
   cargarImagenesCartas() {
-    const urlI = "/assets/images/";
+    const urlI = "assets/images/";
     const tiposCartas = {
       0: ["Picas", "negro"],
       1: ["Diamantes", "rojo"],
@@ -158,7 +158,7 @@ class Juego {
         let i= monton.cartas.length;
         let cot = i;
         while((i==3 || i==5) && cot<=5){
-          camiarImagen(`${index+1}_${cot}`,"/assets/images/sinfondo.png");
+          camiarImagen(`${index+1}_${cot}`,"assets/images/sinfondo.png");
           cot++;
         }
       })
