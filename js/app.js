@@ -5,17 +5,22 @@ function isEqual(str1, str2) {
   return str1 == str2;
 }
 
+function camiarImagen(id='1_1',src="/assets/images/caraOculta.png"){
+  document.getElementById(id).setAttribute('src',src);
+}
+
 class Carta {
   constructor(tipo, numero, color) {
     this.tipo = tipo;
     this.numero = numero;
     this.color = color;
     this.estado = false;
+    this.urlImg = '/assets/images/caraOculta.png';
   }
 
   presentarCarta() {
     console.log(
-      `${this.numero} de ${this.tipo} color: ${this.color} estado: ${this.estado}`
+      `${this.numero} de ${this.tipo} color: ${this.color} estado: ${this.estado} urlImg: ${this.urlImg}`
     );
   }
 }
@@ -44,8 +49,9 @@ class Naipe {
       this.naipe[uno] = this.naipe[dos];
       this.naipe[dos] = aux1;
     });
-  }
 
+  }
+  
   generarNaipe() {
     tiposCartas.forEach((el) => {
       for (let i = 1; i <= 13; i++) {
@@ -53,18 +59,34 @@ class Naipe {
       }
     });
   }
-
+  
   presentarCartas() {
     this.naipe.forEach((el) => {
       el.presentarCarta();
     });
   }
-
+  
   intensidadBarajada(i = 1) {
     for (let j = 0; j < i; j++) {
       this.barajarCartas();
     }
   }
+  cargarImagenesCartas() {
+    const urlI='/assets/images/';
+    const tiposCartas = {
+      0:["Picas", "negro"],
+      1:["Diamantes", "rojo"],
+      2:["Corazones", "rojo"],
+      3:["Rombos", "negro"],
+  };
+    let cont = 0;
+    this.naipe.forEach((el)=>{
+      el.urlImg = `${urlI}${el.numero}${tiposCartas[cont][0]}${tiposCartas[cont][1]}.png`;
+      if (++cont>3) {
+        cont=0;
+      }
+    })
+  };
 }
 
 class Monton {
@@ -75,6 +97,14 @@ class Monton {
   mostrarCartasMonton() {
     this.cartas.forEach((el) => {
       el.presentarCarta();
+    });
+  }
+
+  presentarCarta(m=1) {
+    this.cartas.forEach((el,index) => {
+      if (el.estado) {
+        camiarImagen(`${m}_${index+1}`,el.urlImg);
+      }
     });
   }
 
@@ -112,6 +142,10 @@ class Juego {
     this.mesa = [];
   }
 
+  resetear(){
+    this.iniciarMesa();
+  }
+
   presentarMontones() {
     this.mesa.forEach((el, index) => {
       console.log(index);
@@ -121,23 +155,22 @@ class Juego {
 
   iniciarMesa() {
     this.naipe.generarNaipe();
+    this.naipe.cargarImagenesCartas();
     this.naipe.intensidadBarajada(10);
-    // let cont ={monto:0,c:0}
-    // this.naipe.naipe.forEach((el,index)=>{
-    //   if (index>(this.naipe.naipe.length/13)) {
-
-    //   } else {
-
-    //   }
-    // })
     let cont = 0;
     for (let i = 0; i < 13; i++) {
       const monton = new Monton();
       for (let j = 0; j < 4; j++) {
         monton.cartas.push(this.naipe.naipe[cont++]);
+        camiarImagen(`${i+1}_${j+1}`);
       }
       this.mesa.push(monton);
     }
+  }
+  presentarCarta(){
+    this.mesa.forEach((el,index)=>{
+      el.presentarCarta(index+1);
+    })
   }
 
   jugar() {
@@ -145,12 +178,14 @@ class Juego {
     let ant = 13,numero=0,iteraciones=0;
     while (!this.mesa[ant - 1].cartas[0].estado) {
       numero = this.mesa[ant - 1].destapo();
+      this.presentarCarta();
       this.mesa[numero - 1].inserto(this.mesa[ant - 1].retiro());
       ant=numero;
       iteraciones++;
     }
     console.log('el juego terminó en '+iteraciones+" iteraciones -------------------------------------------------------------");
-    // alert('el juego terminó en '+iteraciones+" iteraciones -------------------------------------------------------------");
+    alert('el juego terminó en '+iteraciones+" iteraciones ");
+    
   }
 
   comprobar(){
@@ -161,6 +196,7 @@ class Juego {
     }})
     return bandera;
   }
+
 }
 
 function ejecutable() {
@@ -186,6 +222,7 @@ function ejecutable() {
     console.log('No se ordenó la baraja');
     
   }
+  // camiarImagen();
 
 }
 
