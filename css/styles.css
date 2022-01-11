@@ -6,7 +6,7 @@
 }
 
 body {
-  background-image: url("/assets/images/mesa2.jpg");
+  background-image: url("./assets/images/mesa2.jpg");
 }
 
 .row {
