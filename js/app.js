@@ -14,7 +14,7 @@ class Carta {
     this.tipo = tipo;
     this.numero = numero;
     this.color = color;
-    this.estado = true;
+    this.estado = false;
     this.urlImg = "/assets/images/caraOculta.png";
   }
 
@@ -137,20 +137,42 @@ class Juego {
   constructor() {
     this.naipe = new Naipe();
     this.mesa = [];
+    this.numero = 0;
+    this.ant = 13;
+    this.iteraciones = 0;
   }
 
-  traductor(){
-    this.mesa.forEach((monton,index)=>{
-      monton.cartas.forEach((carta,indexC)=>{
-        if (carta.estado) {
-          camiarImagen(`${index+1}_${indexC}`,carta.urlImg)
+  traductor(n=0){
+    if (n==0) {
+      this.mesa.forEach((monton,index)=>{
+        monton.cartas.forEach((carta,indexC)=>{
+          if (carta.estado) {
+            camiarImagen(`${index+1}_${indexC}`,carta.urlImg)
+          }else{
+            camiarImagen(`${index+1}_${indexC}`)
+          }
+        })
+      })
+    }else{
+      this.mesa.forEach((monton,index)=>{
+        let i= monton.cartas.length;
+        let cot = i;
+        while((i==3 || i==5) && cot<=5){
+          camiarImagen(`${index+1}_${cot}`,"/assets/images/sinfondo.png");
+          cot++;
         }
       })
-    })
+    }
   }
 
   resetear() {
+    this.naipe = new Naipe();
+    this.mesa = [];
+    this.numero = 0;
+    this.ant = 13;
+    this.iteraciones = 0;
     this.iniciarMesa();
+    this.presentarMontones();
   }
 
   presentarMontones() {
@@ -181,23 +203,27 @@ class Juego {
   }
 
   jugar() {
-    let ant = 13,
-      numero = 0,
-      iteraciones = 0;
-    while (!this.mesa[ant - 1].cartas[0].estado) {
-      // alert("Siguiente")
-      numero = this.mesa[ant - 1].destapo();
-      // this.presentarCarta();
-      this.mesa[numero - 1].inserto(this.mesa[ant - 1].retiro());
-      ant = numero;
-      iteraciones++;
-      // this.traductor();
+    if (!this.mesa[this.ant - 1].cartas[0].estado) {
+      this.numero = this.mesa[this.ant - 1].destapo();
+      this.traductor();
+      
+      this.mesa[this.numero - 1].inserto(this.mesa[this.ant - 1].retiro());
+      // this.traductor(1);
+      this.ant = this.numero;
+      this.iteraciones++;
+    }else{
+      this.traductor();
+      alert(
+        "el juego terminó en " +
+          this.iteraciones +
+          " iteraciones -------------------------------------------------------------"
+      );
+      if (juego.comprobar()) {
+        console.log("La baraja fué ordenada en su totalidad");
+      } else {
+        console.log("No se ordenó la baraja");
+      }
     }
-    console.log(
-      "el juego terminó en " +
-        iteraciones +
-        " iteraciones -------------------------------------------------------------"
-    );
     // alert("el juego terminó en " + iteraciones + " iteraciones ");
   }
 
@@ -213,13 +239,10 @@ class Juego {
   }
 }
 
-function ejecutable() {
+// function ejecutable() {
   const juego = new Juego();
   juego.iniciarMesa();
   juego.presentarMontones();
-  // juego.jugar();
-  // juego.presentarMontones();
-  // juego.traductor();
 
   if (juego.comprobar()) {
     console.log("La baraja fué ordenada en su totalidad");
@@ -227,6 +250,14 @@ function ejecutable() {
     console.log("No se ordenó la baraja");
   }
   juego.traductor();
-}
+  // }
+  
+  function resetear(){
+    juego.resetear();
+  }
 
-ejecutable();
+  function jugar(){
+    juego.jugar();
+    console.log("Si ingresa");
+}
+// ejecutable();
