@@ -5,90 +5,93 @@
   margin: 1rem;
 }
 
-body{
-    background-image: url('/assets/images/mesa2.jpg');
+body {
+  background-image: url("/assets/images/mesa2.jpg");
 }
 
 .row {
-    text-align: center;
+  text-align: center;
 }
 
 .img-container img {
-    max-width: 85px;
+  max-width: 85px;
 }
 
-.tablero{
-width: 80%;
+.tablero {
+  width: 80%;
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 
-
-.grid-container-extremos{
+.grid-container-extremos {
   display: grid;
-  margin-top: 1rem;
-    /* background-color: cornsilk; */
-    grid-template-columns: auto auto auto auto;
-    justify-content: space-between;
-  }
+  margin-bottom: 1.7rem;
+  /* background-color: cornsilk; */
+  grid-template-columns: auto auto auto auto;
+  justify-content: space-between;
+}
 
-  .grid-container-extremos div{
-    /* background-color: crimson; */
-  }
-  
-  .grid-container-medios{
-    margin-top: 1rem;
-    display: flex;
-    width: inherit;
-    /* background-color: cornsilk; */
-    grid-template-columns: auto auto auto auto;
-    justify-content: space-between;
-  }
-  
-  .grid-container-medios div{
-    /* background-color: crimson; */
-  }
-  
-  .container-cartas {
-    max-width: 127px;
-    height: 188px;
-    padding: 1.5rem;
-  }
 
-  .tablero .imagen-central{
-    position: absolute;
-    z-index: 5;
-    /* background-color: aliceblue; */
-    margin-top: 35vh;
-    margin-left: 39%;
-  }
+.grid-container-medios {
+  margin-top: 1.7rem;
+  display: flex;
+  width: inherit;
+  /* background-color: cornsilk; */
+  grid-template-columns: auto auto auto auto;
+  justify-content: space-between;
+}
 
-.container-cartas img{
-    border-radius: 10px;
+.container-cartas {
+  max-width: 127px;
+  height: 188px;
+  padding: 1.5rem;
+  /* background-color: aqua; */
+}
+
+.tablero .imagen-central {
+  position: absolute;
+  z-index: 5;
+  /* background-color: aliceblue; */
+  /* margin-top: 35vh; */
+  margin-left: 37%;
+}
+
+.container-cartas img {
+  border-radius: 10px;
+  max-width: 85px;
 }
 
 .container-cartas .img1 {
-  position:absolute;
+  position: absolute;
   z-index: 1;
 }
 .container-cartas .img2 {
-  position:absolute;
+  position: absolute;
   margin-top: 23px;
   margin-left: 14px;
   z-index: 2;
 }
 .container-cartas .img3 {
-  position:absolute;
+  position: absolute;
   margin-top: 46px;
   margin-left: 28px;
   z-index: 3;
 }
 .container-cartas .img4 {
-  position:absolute;
+  position: absolute;
   margin-top: 69px;
   margin-left: 42px;
   z-index: 4;
 }
 
+.container-cartas .img5 {
+  position: absolute;
+  margin-top: 92px;
+  margin-left: 56px;
+  z-index: 5;
+}
+
 * {
   box-sizing: border-box;
 }
-
