@@ -3,7 +3,7 @@
  * @param {String} id id del documento html
  * @param {String} src direccion del directorio de la imagen de la carta
  */
-function camiarImagen(id = "1_1", src = "/assets/images/caraOculta.png") {
+function camiarImagen(id = "1_1", src = "assets/images/caraOculta.png") {
   document.getElementById(id).setAttribute("src", src);
 }
 /**
