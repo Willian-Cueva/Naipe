@@ -292,17 +292,24 @@ class Juego {
       this.ant = this.numero;
       this.iteraciones++;
     } else {
+      this.mesa.forEach((element) => {
+        element.destapo();
+      });
       this.traductor();
-      alert(
-        "el juego terminó en " +
-          this.iteraciones +
-          " iteraciones -------------------------------------------------------------"
-      );
+
       if (juego.comprobar()) {
         console.log("La baraja fué ordenada en su totalidad");
       } else {
         console.log("No se ordenó la baraja");
       }
+      alert(
+        juego.comprobar()
+          ? "Ganó - La baraja fué ordenada en su totalidad"
+          : "Suerte la próxima vez - No se ordenó la baraja" +
+              "el juego terminó en " +
+              this.iteraciones +
+              " iteraciones -------------------------------------------------------------"
+      );
     }
     // alert("el juego terminó en " + iteraciones + " iteraciones ");
   }
@@ -320,12 +327,28 @@ class Juego {
     });
     return bandera;
   }
+  /**
+   * se encarga de que la vista se presente bien
+   */
+  bugCorreccion() {
+    const urlSinFondo = "/assets/images/sinfondo.png";
+    this.mesa.forEach((element, index) => {
+      // console.log(element);
+      if (element.cartas.length == 3) {
+        for (let j = 3; j <= 4; j++) {
+          camiarImagen(`${index + 1}_${j}`, urlSinFondo);
+        }
+      } else if (element.cartas.length == 4) {
+        camiarImagen(`${index + 1}_4`, urlSinFondo);
+      }
+    });
+  }
 }
 
 // function ejecutable() {
 const juego = new Juego();
 juego.iniciarMesa();
-juego.presentarMontones();
+// juego.presentarMontones();
 
 if (juego.comprobar()) {
   console.log("La baraja fué ordenada en su totalidad");
@@ -345,6 +368,5 @@ function resetear() {
  */
 function jugar() {
   juego.jugar();
-  console.log("Si ingresa");
+  juego.bugCorreccion();
 }
-// ejecutable();
