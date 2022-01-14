@@ -321,7 +321,7 @@ class Juego {
     let bandera = true;
     this.mesa.forEach((el) => {
       if (!el.ordenadas()) {
-        console.log("si entra xd");
+        // console.log("si entra xd");
         bandera = false;
       }
     });
@@ -350,11 +350,11 @@ const juego = new Juego();
 juego.iniciarMesa();
 // juego.presentarMontones();
 
-if (juego.comprobar()) {
-  console.log("La baraja fué ordenada en su totalidad");
-} else {
-  console.log("No se ordenó la baraja");
-}
+// if (juego.comprobar()) {
+//   console.log("La baraja fué ordenada en su totalidad");
+// } else {
+//   console.log("No se ordenó la baraja");
+// }
 juego.traductor();
 // }
 /**
