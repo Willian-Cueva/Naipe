@@ -221,7 +221,7 @@ class Juego {
         let i = monton.cartas.length;
         let cot = i;
         while((i==3 || i==5) && cot<=5){
-          camiarImagen(`${index+1}_${cot}`,"assets/images/sinfondo.png");
+          camiarImagen(`${index+1}_${cot}`,"./assets/images/sinfondo.png");
           cot++;
         }
       });
